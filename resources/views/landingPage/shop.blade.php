@@ -77,7 +77,7 @@
 @endsection
 
 @section('script')
-<script>
+{{-- <script>
    $(document).ready(function () {
       function updateCart(productId, newQuantity, action) {
          let ajaxOptions = {
@@ -111,6 +111,85 @@
          }
 
          $.ajax(ajaxOptions);
+      }
+
+      // Increase quantity handler
+      $(".increase-quantity").click(function () {
+         const $card = $(this).closest(".card");
+         const $quantityElem = $card.find(".quantity-input");
+         const productId = $(this).data("product-id");
+
+         let currentQuantity = parseInt($quantityElem.text()) || 0;
+         let newQuantity = currentQuantity + 1;
+
+         $quantityElem.text(newQuantity);
+         updateCart(productId, newQuantity, "update");
+      });
+
+      // Decrease quantity handler
+      $(".decrease-quantity").click(function () {
+         const $card = $(this).closest(".card");
+         const $quantityElem = $card.find(".quantity-input");
+         const productId = $card.find('input[name="id_produk"]').val();
+
+         let currentQuantity = parseInt($quantityElem.text()) || 0;
+         let newQuantity = Math.max(currentQuantity - 1, 0); // Ensure quantity never goes negative
+
+         $quantityElem.text(newQuantity);
+         updateCart(productId, newQuantity, newQuantity === 0 ? "delete" : "update");
+      });
+   });
+</script> --}}
+<script>
+   $(document).ready(function () {
+      function updateCart(productId, newQuantity, action) {
+         let ajaxOptions = {
+            headers: {
+               "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (response) {
+               console.log(response.message);
+               if (newQuantity === 0 && action === "delete") {
+                  // Remove the product card from UI
+                  $(`#product-card-${productId}`).fadeOut("fast", function () {
+                     $(this).remove();
+                  });
+               }
+
+               // Update the cart count dynamically after the action
+               updateCartCount(); 
+            },
+            error: function (xhr) {
+               console.error("Error:", xhr.responseJSON?.message || "Request failed");
+            },
+         };
+
+         if (newQuantity === 0) {
+            // Delete item from cart
+            ajaxOptions.url = "{{ route('keranjang.deleteKeranjang') }}";
+            ajaxOptions.method = "DELETE";
+            ajaxOptions.data = { id_produk: productId };
+         } else {
+            // Update item quantity
+            ajaxOptions.url = "{{ route('keranjang.updateKeranjang') }}";
+            ajaxOptions.method = "POST";
+            ajaxOptions.data = { id_produk: productId, quantity: newQuantity };
+         }
+
+         $.ajax(ajaxOptions);
+      }
+
+      function updateCartCount() {
+         $.ajax({
+            url: "{{ route('keranjang.count') }}", // Adjust this to the route for getting the cart count
+            method: "GET",
+            success: function (response) {
+               $("#cart-count").text(response.count); // Update the cart count in the header
+            },
+            error: function () {
+               console.error("Failed to fetch cart count");
+            }
+         });
       }
 
       // Increase quantity handler

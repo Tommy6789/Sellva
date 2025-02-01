@@ -35,6 +35,7 @@ Route::resource('dataVoucher', DataVoucherController::class);
 
 Route::Post('keranjang/updateJumlah', [KeranjangController::class, 'updateKeranjang'])->name('keranjang.updateKeranjang');
 Route::delete('/keranjang/delete', [KeranjangController::class, 'deleteKeranjang'])->name('keranjang.deleteKeranjang');
+Route::get('/keranjang/count', [KeranjangController::class, 'getCartCount'])->name('keranjang.count');
 
 Route::resource('login', LoginController::class);
 Route::post('loginCheck', [LoginController::class, 'loginCheck'])->name('loginCheck');

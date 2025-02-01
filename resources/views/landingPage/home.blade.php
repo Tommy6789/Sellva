@@ -13,9 +13,17 @@
 </script>
 @endif
 
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Shop in Sellva</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">All Your Daily Needs</p>
+                </div>
+            </div>
+        </header>
+
     <!-- Section-->
-    <a class="btn btn-primary" type="button" href="{{ route('login.index') }}">Login</a>
-    <a class="btn btn-primary" type="button" href="{{ route('logout') }}">Logout</a>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-l-4 justify-content-center">
