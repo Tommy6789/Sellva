@@ -23,13 +23,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         view()->composer('*', function ($view) {
-                $cartCount = 0;
-                
-                if (Auth::check()) {
-                    $cartCount = keranjang::where('id_user', Auth::id())->sum('quantity');
-                }
+            $cartCount = 0;
         
-                $view->with('cartCount', $cartCount);
+            if (Auth::check()) {
+                // Count distinct products in the user's cart
+                $cartCount = keranjang::where('id_user', Auth::id())->distinct('id_produk')->count('id_produk');
+            }
+        
+            $view->with('cartCount', $cartCount);
         });
     }
 }
