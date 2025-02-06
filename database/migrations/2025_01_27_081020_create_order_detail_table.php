@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('quantity');
             $table->integer('harga');
             $table->integer('subtotal');
-            $table->integer('total');
             $table->timestamps();
 
             $table->foreign('id_transaksi')->references('id')->on('transaksis');

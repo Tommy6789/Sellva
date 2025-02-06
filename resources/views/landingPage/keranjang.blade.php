@@ -43,11 +43,11 @@
                             <tr id="product-card-{{ $i->produk->id }}">
                                 <td>{{ $i->produk->nama }}</td>
                                 <td class="price" data-price="{{ $i->produk->harga }}">
-                                    Rp {{ number_format($i->produk->harga, 0, ',', '') }}
+                                    Rp {{ number_format($i->produk->harga, 0, ',', '.') }}
                                 </td>
                                 <td>{{ $i->quantity }}</td>
                                 <td id="subtotal-{{ $i->produk->id }}">
-                                    Rp {{ number_format($subtotal, 0, ',', '') }}
+                                    Rp {{ number_format($subtotal, 0, ',', '.') }}
                                 </td>
                                 <td>
                                     <div class="mb-3 d-flex justify-content-center align-items-center quantity-selector">
@@ -64,7 +64,7 @@
                     <tfoot>
                         <tr class="fw-bold">
                             <td colspan="3" class="text-end">Total Harga:</td>
-                            <td colspan="2" id="total-price">Rp {{ number_format($totalHarga, 0, ',', '') }}</td>
+                            <td colspan="2" id="total-price">Rp {{ number_format($totalHarga, 0, ',', '.') }}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -76,7 +76,6 @@
         @endif
     </div>
 </section>
-
 @endsection
 
 @section('script')
@@ -166,6 +165,7 @@
     });
 </script>
 @endsection
+
 
 
 {{-- @extends('landingPage.partials.master')

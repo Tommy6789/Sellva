@@ -42,9 +42,9 @@
                                  <td>{{ $order->id }}</td>
                                  <td>{{ $order->waktu_order }}</td>
                                  <td>{{ $order->waktu_pembayaran }}</td>
-                                 <td>Rp {{ $order->total }}</td>
-                                 <td>Rp {{ $order->nominal_pembayaran }}</td>
-                                 <td>Rp {{ $order->kembalian }}</td>
+                                 <td>Rp {{ number_format($order->total, 0, ',', '.') }}</td>
+                                 <td>Rp {{ number_format($order->nominal_pembayaran, 0, ',', '.') }}</td>
+                                 <td>Rp {{ number_format($order->kembalian, 0, ',', '.') }}</td>
                                  <td>{{ ucfirst($order->status) }}</td>
                                  <td>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -69,11 +69,11 @@
                                                    <label for="metode_pembayaran">Metode Pembayaran</label>
                                                    <select name="metode_pembayaran" class="form-control"
                                                          required>
-                                                       <option value="">Pilih Metode Pembayaran ↓</option>
-                                                       <option value="tunai">Tunai</option>
-                                                       <option value="debit">Debit</option>
-                                                       <option value="kredit">Kredit</option>
-                                                       <option value="qris">QRIS</option>
+                                                      <option value="">Pilih Metode Pembayaran ↓</option>
+                                                      <option value="tunai">Tunai</option>
+                                                      <option value="debit">Debit</option>
+                                                      <option value="kredit">Kredit</option>
+                                                      <option value="qris">QRIS</option>
                                                    </select>
                                                 </div>
                                                 <div class="mb-3">
@@ -114,17 +114,17 @@
    $(document).ready(function() {
       $(document).on('input', '.nominal_pembayaran', function() {
          let total = parseFloat($(this).data('total'));
-         let pembayaran = parseFloat($(this).val().replace(/\./g, '')) || 0; // Clean value
+         let pembayaran = parseFloat($(this).val().replace(/\./g, '')) || 0; // Clean value by removing dot separator
          let kembalian = Math.max(pembayaran - total, 0);
 
          // Display the cleaned value without any dot separators
-         $(this).val(pembayaran);
-         $(this).closest('.modal-body').find('.kembalian').val(kembalian);
+         $(this).val(pembayaran.toLocaleString('id-ID')); // Formatting for display
+         $(this).closest('.modal-body').find('.kembalian').val(kembalian.toLocaleString('id-ID'));
       });
    });
 </script>
-
 @endsection
+
 
       {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script>

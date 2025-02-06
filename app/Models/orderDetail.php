@@ -14,11 +14,15 @@ class orderDetail extends Model
         'quantity',
         'harga',
         'subtotal',
-        'total',
     ];
 
     public function order()
     {
         return $this->belongsTo(order::class, 'id_order', 'id');
+    }
+
+    public function produk()
+    {
+        return $this->belongsTo(produk::class, 'id_produk', 'id');
     }
 }

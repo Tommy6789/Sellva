@@ -106,7 +106,6 @@ class KeranjangController extends Controller
                 'quantity'  => $item->quantity,
                 'harga'     => $price,
                 'subtotal'  => $subtotal,
-                'total'     => $subtotal,
             ]);
         });
 

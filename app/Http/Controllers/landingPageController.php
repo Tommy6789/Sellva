@@ -38,32 +38,75 @@ class LandingPageController extends Controller
     }
 
     public function pembayaran(Request $request, $id)
-{
-    $validatedData = $request->validate([
-        'metode_pembayaran' => 'required',
-        'nominal_pembayaran' => 'required|numeric|min:0',
-    ]);
+    {
+        // Clean the nominal_pembayaran to remove thousand separators
+        $nominalPembayaran = str_replace('.', '', $request->nominal_pembayaran);
+    
+        // Validate the input
+        $validatedData = $request->validate([
+            'metode_pembayaran' => 'required',
+            'nominal_pembayaran' => 'required|numeric|min:0',
+        ]);
+    
+        // Now we can safely use the cleaned value
+        $validatedData['nominal_pembayaran'] = (int)$nominalPembayaran;
+    
+        $order = Order::findOrFail($id);
+    
+        // Calculate 'kembalian'
+        $total = $order->total;
+        $kembalian = $validatedData['nominal_pembayaran'] - $total;
+    
+        // Update the order with the payment details
+        $order->update([
+            'metode_pembayaran' => $validatedData['metode_pembayaran'],
+            'nominal_pembayaran' => $validatedData['nominal_pembayaran'],
+            'kembalian' => $kembalian,
+            'waktu_pembayaran' => now(),
+            'status' => 'selesai',
+        ]);
+    
+        $kurangiStok = orderDetail::where('id_order', $id)->get();
+        foreach ($kurangiStok as $item) {
+            $produk = produk::where('id', $item->id_produk)->first();
+            $stok = $produk->stok;
+            $kurangistok = $stok - $item->quantity;
+            $updateStok = produk::where('id', $item->id_produk)->update(['stok' => $kurangistok]);
+        }
+    
+        return redirect()->back()->with('success', 'Pembayaran berhasil.');
+    }
 
-    $validatedData['nominal_pembayaran'] = $validatedData['nominal_pembayaran'];
+//     public function pembayaran(Request $request, $id)
+// {
+//     // Clean the nominal_pembayaran to remove thousand separators
+//     $nominalPembayaran = str_replace('.', '', $request->nominal_pembayaran);
 
-    $order = Order::findOrFail($id);
+//     // Validate the input
+//     $validatedData = $request->validate([
+//         'metode_pembayaran' => 'required',
+//         'nominal_pembayaran' => 'required|numeric|min:0',
+//     ]);
 
-    // Calculate 'kembalian'
-    $total = $order->total;
-    $kembalian = $validatedData['nominal_pembayaran'] - $total;
+//     // Now we can safely use the cleaned value
+//     $validatedData['nominal_pembayaran'] = (int)$nominalPembayaran;
 
-    // Update the order
-    $order->update([
-        'metode_pembayaran' => $validatedData['metode_pembayaran'],
-        'nominal_pembayaran' => $validatedData['nominal_pembayaran'],
-        'kembalian' => $kembalian,
-        'waktu_pembayaran' => now(),
-        'status' => 'selesai',
-    ]);
+//     $order = Order::findOrFail($id);
 
-    return redirect()->back()->with('success', 'Pembayaran berhasil.');
-}
+//     // Calculate 'kembalian'
+//     $total = $order->total;
+//     $kembalian = $validatedData['nominal_pembayaran'] - $total;
 
+//     // Update the order
+//     $order->update([
+//         'metode_pembayaran' => $validatedData['metode_pembayaran'],
+//         'nominal_pembayaran' => $validatedData['nominal_pembayaran'],
+//         'kembalian' => $kembalian,
+//         'waktu_pembayaran' => now(),
+//         'status' => 'selesai',
+//     ]);
 
+//     return redirect()->back()->with('success', 'Pembayaran berhasil.');
+// }
 
 }
