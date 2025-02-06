@@ -32,10 +32,14 @@ class LandingPageController extends Controller
     }
 
     public function kasir()
-    {
-        $data = order::all();
-        return view('landingPage.kasir', compact('data'));
-    }
+{
+    // Fetch all orders and sort by 'waktu_order' in descending order
+    $data = Order::orderBy('waktu_order', 'desc')->get();
+
+    // Return the data to the view
+    return view('landingPage.kasir', compact('data'));
+}
+
 
     public function pembayaran(Request $request, $id)
     {
