@@ -27,8 +27,4 @@ class produk extends Model
         return $this->hasMany(Transaksi::class, 'id_produk', 'id');
     }
     
-    public function wishlist()
-    {
-        return $this->hasMany(wishlist::class, 'id_produk', 'id');
-    }
 }

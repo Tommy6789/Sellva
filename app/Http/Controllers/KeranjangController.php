@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\keranjang;
+use App\Models\order;
+use App\Models\orderDetail;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,20 +46,77 @@ class KeranjangController extends Controller
     }
 
     public function getCartCount()
-{
-    $userId = auth()->id();
+    {
+        $userId = auth()->id();
 
-    // If the user is not logged in, return 0
-    if (!$userId) {
-        return response()->json(['count' => 0]);
+        // If the user is not logged in, return 0
+        if (!$userId) {
+            return response()->json(['count' => 0]);
+        }
+
+        // Count distinct products in the cart
+        $totalItems = Keranjang::where('id_user', $userId)
+            ->distinct('id_produk')
+            ->count('id_produk'); // Count distinct product IDs
+
+        return response()->json(['count' => $totalItems]);
     }
 
-    // Count distinct products in the cart
-    $totalItems = Keranjang::where('id_user', $userId)
-                        ->distinct('id_produk')
-                        ->count('id_produk'); // Count distinct product IDs
+    public function keranjangPage()
+    {
+        $data = keranjang::all();
+        return view('landingPage.keranjang', compact('data'));
+    }
 
-    return response()->json(['count' => $totalItems]);
+    public function keranjangCheckout()
+{
+    $user = auth()->user();
+
+    // Get all cart items of the logged-in user
+    $cartItems = Keranjang::where('id_user', $user->id)->get();
+
+    if ($cartItems->isEmpty()) {
+        return redirect()->back()->with('error', 'Keranjang belanja Anda kosong.');
+    }
+
+    // Calculate total price
+    $totalPrice = $cartItems->sum(function ($item) {
+        $price = (int) $item->produk->harga;  // Assume harga is a plain numeric value
+        return $item->quantity * $price;
+    });
+
+    try {
+        // Create a new order
+        $order = Order::create([
+            'id_user'     => $user->id,
+            'total'       => $totalPrice,
+            'status'      => 'proses',
+            'waktu_order' => now(),
+        ]);
+
+        // Create order details for each cart item
+        $cartItems->each(function ($item) use ($order, $user) {
+            $price = (int) $item->produk->harga;  // Assume harga is a plain numeric value
+            $subtotal = $item->quantity * $price;
+
+            OrderDetail::create([
+                'id_user'   => $user->id,
+                'id_order'  => $order->id,
+                'id_produk' => $item->id_produk,
+                'quantity'  => $item->quantity,
+                'harga'     => $price,
+                'subtotal'  => $subtotal,
+                'total'     => $subtotal,
+            ]);
+        });
+
+        // Clear the cart after successful checkout
+        Keranjang::where('id_user', $user->id)->delete();
+
+        return redirect()->route('home')->with('success', 'Checkout berhasil! Pesanan Anda sedang diproses.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat melakukan checkout. Silakan coba lagi.');
+    }
 }
 
 

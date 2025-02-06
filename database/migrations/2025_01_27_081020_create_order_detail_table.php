@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wishlists', function (Blueprint $table) {
+        Schema::create('order_detail', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_transaksi');
             $table->unsignedBigInteger('id_produk');
+            $table->integer('quantity');
+            $table->integer('harga');
+            $table->integer('subtotal');
+            $table->integer('total');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_transaksi')->references('id')->on('transaksis');
             $table->foreign('id_produk')->references('id')->on('produks');
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wishlists');
+        Schema::dropIfExists('detail_transaksis');
     }
 };
