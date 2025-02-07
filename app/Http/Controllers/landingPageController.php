@@ -81,6 +81,13 @@ class LandingPageController extends Controller
         return redirect()->back()->with('success', 'Pembayaran berhasil.');
     }
 
+    public function nota($id)
+{
+    $order = Order::with(['user', 'orderDetail.produk'])->findOrFail($id);  // Fetch the Order with its user and order details (including product)
+    return view('pdf.nota', compact('order'));
+}
+
+}
 //     public function pembayaran(Request $request, $id)
 // {
 //     // Clean the nominal_pembayaran to remove thousand separators
@@ -112,5 +119,3 @@ class LandingPageController extends Controller
 
 //     return redirect()->back()->with('success', 'Pembayaran berhasil.');
 // }
-
-}

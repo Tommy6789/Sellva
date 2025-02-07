@@ -41,6 +41,7 @@ Route::get('keranjangCheckout', [KeranjangController::class, 'keranjangCheckout'
 Route::get('/checkout', [KeranjangController::class, 'keranjangCheckout'])->name('keranjangCheckout');
 Route::get('kasir', [LandingPageController::class, 'kasir'])->name('kasir');
 Route::post('/pembayaran/{id}', [LandingPageController::class, 'pembayaran'])->name('pembayaran');
+Route::get('nota/{id}', [LandingPageController::class, 'nota'])->name('nota');
 
 Route::resource('login', LoginController::class);
 Route::post('loginCheck', [LoginController::class, 'loginCheck'])->name('loginCheck');

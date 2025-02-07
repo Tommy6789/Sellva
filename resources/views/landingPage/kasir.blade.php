@@ -49,6 +49,7 @@
                                  <td>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                        data-bs-target="#modalPembayaran{{ $order->id }}">Pembayaran</button>
+                                       <a href="{{route('nota', $order->id)}}" class="btn btn-success">Nota</a>
                                  </td>
                            </tr>
 
@@ -77,6 +78,9 @@
                                                    </select>
                                                 </div>
                                                 <div class="mb-3">
+                                                <b>Total: Rp {{ number_format($order->total, 0, ',', '.') }}</b>
+                                                </div>
+                                                <div class="mb-3">
                                                    <label for="nominal_pembayaran">Nominal Pembayaran</label>
                                                    <input type="text" class="form-control nominal_pembayaran"
                                                          name="nominal_pembayaran"
@@ -98,7 +102,6 @@
                                     </div>
                                  </div>
                            </div>
-
                            <!-- End Modal Pembayaran -->
                         @endforeach
                      </tbody>
