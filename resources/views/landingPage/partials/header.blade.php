@@ -39,6 +39,71 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="{{ route('home') }}">Sellva</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" href="{{ route('home') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{ route('shop') }}">Shop</a></li>
+    
+                    @auth
+                        @if (Auth::user()->role === 'kasir')
+                            <li class="nav-item"><a class="nav-link" href="{{ route('kasir') }}">Kasir</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('dataProduk.index') }}">Data Produk</a></li>
+                            @endif
+                            @if (Auth::user()->role === 'admin')
+                            <li class="nav-item"><a class="nav-link" href="{{ route('kasir') }}">Kasir</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('dashboard.index') }}">Dashboard</a></li>
+                        @endif
+                    @endauth
+    
+                    <li class="nav-item">
+                        @auth
+                            <a class="nav-link active" href="#" id="logout-btn">Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                            <script>
+                                document.getElementById("logout-btn").addEventListener("click", function(event) {
+                                    event.preventDefault();
+                                    Swal.fire({
+                                        title: "Are you sure?",
+                                        text: "You will be logged out!",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#d33",
+                                        cancelButtonColor: "#3085d6",
+                                        confirmButtonText: "Yes, logout!"
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            document.getElementById("logout-form").submit();
+                                        }
+                                    });
+                                });
+                            </script>
+                        @else
+                            <a class="nav-link active" href="{{ route('login') }}">Login</a>
+                        @endauth
+                    </li>
+                </ul>
+
+                        <a href="{{ route('keranjangPage') }}" class="btn btn-outline-dark d-flex align-items-center">
+                            <i class="bi-cart-fill me-1"></i>
+                            Keranjang
+                            <span id="cart-count" class="badge bg-dark text-white ms-1 rounded-pill">
+                                {{ $cartCount ?? 0 }}
+                            </span>
+                        </a>
+            </div>
+        </div>
+    </nav>
+    
+    {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="#!">Sellva</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -51,12 +116,12 @@
                         @if (Auth::check())
                             <a class="nav-link active" aria-current="page" href="{{ route('shop') }}">Shop</a>
                         @else
-                            <a class="nav-link active" aria-current="page" href="{{ route('login.index') }}"
-                                onclick="event.preventDefault(); window.location.href='{{ route('login.index') }}';">Shop</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route('login') }}"
+                                onclick="event.preventDefault(); window.location.href='{{ route('login') }}';">Shop</a>
                         @endif
                     </li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('kasir') }}">Kasir</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('dashboardPetugas.index') }}">Dashboard</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('dashboard.index') }}">Dashboard</a>
                     </li>
                     <li class="nav-item">
                         @if (Auth::check())
@@ -84,7 +149,7 @@
                                 });
                             </script>
                         @else
-                            <a class="nav-link active" href="{{ route('login.index') }}">Login</a>
+                            <a class="nav-link active" href="{{ route('login') }}">Login</a>
                         @endif
                     </li>
                 </ul>
@@ -97,7 +162,7 @@
                 </a>
             </div>
         </div>
-    </nav>
+    </nav> --}}
 
     <script>
         $(document).ready(function() {

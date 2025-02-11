@@ -44,11 +44,11 @@
     </section>
 
 </section>
-
 </main>
 
-<div style="margin-left: 600px; margin-top: 40px; margin-bottom: 40px; margin-right: 40px;" class="text-center mt-5">
-    <button onclick="window.print()" class="btn btn-primary" style="padding: 12px 25px; font-size: 16px; border-radius: 5px; background-color: #007bff; color: white; border: none; cursor: pointer;">Print Nota</button>
+<div style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
+    <a class="btn btn-warning" href="{{ route('kasir') }}" style="padding: 12px 25px; font-size: 16px; border-radius: 5px; background-color: #ffc107; color: black; text-decoration: none; border: none;">Kembali</a>
+    <button onclick="window.print()" class="btn btn-primary" style="padding: 12px 25px; font-size: 16px; border-radius: 5px; background-color: #007bff; color: white; border: none; cursor: pointer; margin-right: 10px;">Print Nota</button>
 </div>
 
 
@@ -67,8 +67,6 @@
         }
     }
 </style>
-
-
 
 
 {{-- @extends('landingPage.partials.master')

@@ -13,7 +13,7 @@ class DataProdukController extends Controller
 	public function index()
 	{
 		$data = produk::all();
-		return view('dashboardPetugas.dataProduk', compact('data'));
+		return view('dashboard.dataProduk', compact('data'));
 	}
 
 	/**

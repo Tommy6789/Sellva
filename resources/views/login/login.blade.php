@@ -33,7 +33,11 @@
 <!--end::Head-->
 
 <!--begin::Body-->
-<body class="login-page bg-body-secondary" style="background: url('{{ asset('dist/assets/img/LoginBackground.png') }}') no-repeat center center; background-size: cover;">
+<body class="login-page bg-body-secondary" style="
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    url('{{ asset('dist/assets/img/LoginBackground.png') }}') no-repeat center center; 
+    background-size: cover;">
+
     <!-- SweetAlert2 -->
     @if (session('success') || session('error'))
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

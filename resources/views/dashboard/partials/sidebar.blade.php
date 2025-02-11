@@ -22,13 +22,34 @@
     <div class="sidebar-wrapper">
       <nav class="mt-2">
         <!--begin::Sidebar Menu-->
-        <ul
+        <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+          @auth
+              @if (Auth::user()->role === 'admin')
+                  <li class="nav-item">
+                      <a href="{{ route('dashboard.index') }}" class="nav-link">
+                          <i class="bi bi-speedometer2"></i>
+                          <p>Dashboard</p>
+                      </a>
+                  </li>
+              @endif
+              @if (Auth::user()->role === 'admin' || Auth::user()->role === 'kasir')
+                  <li class="nav-item">
+                      <a href="{{ route('dataProduk.index') }}" class="nav-link">
+                          <i class="bi bi-archive-fill"></i>
+                          <p>Data Barang</p>
+                      </a>
+                  </li>
+              @endif
+          @endauth
+      </ul>
+      
+        {{-- <ul
           class="nav sidebar-menu flex-column"
           data-lte-toggle="treeview"
           role="menu"
           data-accordion="false" >
         <li class="nav-item">
-          <a href="{{ route('dashboardPetugas.index') }}" class="nav-link">
+          <a href="{{ route('dashboard.index') }}" class="nav-link">
             <i class="bi bi-speedometer2"></i>
             <p>Dashboard</p>
           </a>
@@ -39,13 +60,7 @@
             <p>Data Barang</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="{{ route('dataVoucher.index') }}" class="nav-link">
-            <i class="bi bi-ticket-perforated-fill"></i>
-            <p>Voucher</p>
-          </a>
-        </li>
-        </ul>
+        </ul> --}}
         <!--end::Sidebar Menu-->
       </nav>
     </div>

@@ -48,7 +48,11 @@
   </head>
   <!--end::Head-->
   <!--begin::Body-->
-  <body class="register-page bg-body-secondary" style="background: url('{{ asset('dist/assets/img/RegisterBackground.jpg') }}') no-repeat center center; background-size: cover;">
+  <body class="register-page bg-body-secondary" style="
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    url('{{ asset('dist/assets/img/RegisterBackground.jpg') }}') no-repeat center center; 
+    background-size: cover;">
+
     <div class="register-box">
       <!-- /.register-logo -->
       <div class="card">
@@ -57,7 +61,7 @@
             <a href="../index2.html"><b>Sellva</b></a>
         </div>
           <p class="register-box-msg">Register a new membership</p>
-          <form action="{{ route('login.store') }}" method="post">
+          <form action="{{ route('register.store') }}" method="post">
             @csrf
             <div class="input-group mb-3">
               <input type="text" class="form-control" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}"/>
@@ -115,7 +119,7 @@
           </form>
           <!-- /.social-auth-links -->
           <p class="mb-0">
-            <a href="{{ route('login.index') }}" class="text-center"> I already have a membership </a>
+            <a href="{{ route('login') }}" class="text-center"> I already have a membership </a>
           </p>
         </div>
         <!-- /.register-card-body -->

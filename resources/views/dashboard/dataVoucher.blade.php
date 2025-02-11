@@ -1,4 +1,4 @@
-@extends('dashboardPetugas.partials.master')
+@extends('dashboard.partials.master')
 
 @section('content')
 

@@ -47,8 +47,12 @@
                                  <td>Rp {{ number_format($order->kembalian, 0, ',', '.') }}</td>
                                  <td>{{ ucfirst($order->status) }}</td>
                                  <td>
+                                    @if ($order->status == 'proses')
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                       data-bs-target="#modalPembayaran{{ $order->id }}">Pembayaran</button>
+                                    data-bs-target="#modalPembayaran{{ $order->id }}">Pembayaran</button>
+                                    @else
+                                    <button type="button" class="btn btn-primary" disabled>Pembayaran</button>
+                                    @endif
                                        <a href="{{route('nota', $order->id)}}" class="btn btn-success">Nota</a>
                                  </td>
                            </tr>
