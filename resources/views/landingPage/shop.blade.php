@@ -57,25 +57,19 @@
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                            <div class="text-center">
                               <!-- Pass the current user and product id using the correct field names -->
-                              <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
+                              <input type="hidden" name="id_user" value="{{ Auth::check() ? Auth::user()->id : '' }}">
                               <input type="hidden" name="id_produk" value="{{ $i->id }}">
                               <!-- This hidden field will be updated by JS with the selected quantity -->
                               <input type="hidden" name="quantity" value="0" class="buy-quantity">
 
                               <!-- Quantity Selector -->
-                              <div class="mb-3 d-flex justify-content-center align-items-center quantity-selector">
+                              <!-- Check if user is logged in -->
+                              <div class="mb-3 d-flex justify-content-center align-items-center quantity-selector" data-auth="{{ Auth::check() ? 'true' : 'false' }}">
                                  <button type="button" class="btn btn-outline-dark decrease-quantity">-</button>
-                                 <span id="quantity-{{ $i->id }}"
-                                       class="form-control mx-2 text-center quantity-input"
-                                       style="width: 100px;">
-                                    @if ($i->quantity > 0)
-                                       {{ $i->quantity }}
-                                    @else
-                                       0
-                                    @endif
+                                 <span id="quantity-{{ $i->id }}" class="form-control mx-2 text-center quantity-input" style="width: 100px;">
+                                    {{ $i->quantity > 0 ? $i->quantity : 0 }}
                                  </span>
-                                 <button type="button" class="btn btn-outline-dark increase-quantity"
-                                       data-product-id="{{ $i->id }}">+</button>
+                                 <button type="button" class="btn btn-outline-dark increase-quantity" data-product-id="{{ $i->id }}">+</button>
                               </div>
                            </div>
                         </div>
@@ -165,6 +159,13 @@
 
             $quantityElem.text(newQuantity);
             updateCart(productId, newQuantity, newQuantity === 0 ? "delete" : "update");
+         });
+            document.querySelectorAll('.quantity-selector').forEach(selector => {
+            selector.addEventListener('click', (e) => {
+               if (selector.dataset.auth === 'false') {
+                     window.location.href = '{{ route('login') }}';
+               }
+            });
          });
       });
    </script>
