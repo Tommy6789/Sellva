@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('tanggal_masuk');
             $table->date('expire');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

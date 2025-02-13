@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\keranjang;
+use App\Models\order;
+use App\Models\produk;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -10,9 +14,15 @@ class DashboardController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    return view('dashboard.index');
-}
+    {
+        $totalUsers = User::count();
+        $totalProducts = Produk::count();
+        $totalOrders = order::count();
+        $totalCartItems = keranjang::count();
+        $recentOrders = Order::with('user')->orderBy('waktu_order', 'desc')->take(5)->get();
+    
+        return view('dashboard.index', compact('totalUsers', 'totalProducts', 'totalOrders', 'totalCartItems', 'recentOrders'));
+    }    
 
 
     /**

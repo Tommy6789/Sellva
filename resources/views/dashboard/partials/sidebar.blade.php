@@ -35,8 +35,22 @@
               @if (Auth::user()->role === 'admin' || Auth::user()->role === 'kasir')
                   <li class="nav-item">
                       <a href="{{ route('dataProduk.index') }}" class="nav-link">
-                          <i class="bi bi-archive-fill"></i>
+                        <i class="bi bi-box-seam"></i>
                           <p>Data Barang</p>
+                      </a>
+                  </li>
+              @endif
+              @if (Auth::user()->role === 'admin')
+                  <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="bi bi-receipt"></i>
+                          <p>Data Order</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="bi bi-person-badge-fill"></i>
+                          <p>Data User</p>
                       </a>
                   </li>
               @endif

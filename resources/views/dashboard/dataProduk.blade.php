@@ -41,6 +41,7 @@
 <div>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
         data-bs-target="#tambahProduk">Tambah Produk</button>
+        <a href="{{ route('recyclebin') }}" class="btn btn-success">Recycle Bin</a>
         <br>
     <table class="table table-striped">
         @php $no = 1; @endphp
@@ -59,14 +60,14 @@
                 <tr>
                     <td>{{ $no++ }} </td>
                     <td>{{ $i->nama }} </td>
-                    <td>Rp {{ $i->harga }} </td>
+                    <td> Rp {{ number_format($i->harga, 0, ',', '.') }}</td>
                     <td>{{ $i->stok }} </td>
                     <td>{{ $i->tanggal_masuk }} </td>
                     <td>{{ $i->expire }} </td>
                     <td><img src="{{ asset('storage/' . $i->gambar) }}" alt="Produk Gambar"
                             style="width: 60px; height: 70px;"></td>
                     <td>
-                        <form action="{{ route('dataProduk.destroy', $i->id) }}" method="POST" style="display: inline;"
+                        <form action="{{ route('dataProduk.softDelete', $i->id) }}" method="POST" style="display: inline;"
                             onsubmit="return confirm('Are you sure you want to delete this product?');">
                             @csrf
                             @method('DELETE')

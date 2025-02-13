@@ -34,6 +34,7 @@ Route::post('/register', [LoginController::class, 'store'])->name('register.stor
     // Admin Routes
     Route::middleware('role:admin')->group(function () {
         Route::resource('dashboard', DashboardController::class);
+        Route::delete('dataProduk/forceDelete/{id}', [DataProdukController::class, 'forceDelete'])->name('dataProduk.forceDelete');
     });
 
 // Admin & Kasir Shared Routes
@@ -42,6 +43,9 @@ Route::middleware('role:admin,kasir')->group(function () {
     Route::get('kasir', [LandingPageController::class, 'kasir'])->name('kasir');
     Route::post('/pembayaran/{id}', [LandingPageController::class, 'pembayaran'])->name('pembayaran');
     Route::get('nota/{id}', [LandingPageController::class, 'nota'])->name('nota');
+    Route::delete('dataProduk/softDelete/{id}', [DataProdukController::class, 'softDelete'])->name('dataProduk.softDelete');
+    Route::get('/recyclebin', [DataProdukController::class, 'recyclebin'])->name('recyclebin');
+    Route::patch('dataProduk/restore/{id}', [DataProdukController::class, 'restore'])->name('dataProduk.restore');
 });
 
 // Admin, Kasir, Pelanggan Shared Routes
