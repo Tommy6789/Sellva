@@ -24,6 +24,19 @@ class DashboardController extends Controller
         return view('dashboard.index', compact('totalUsers', 'totalProducts', 'totalOrders', 'totalCartItems', 'recentOrders'));
     }    
 
+    public function dataUsers()
+    {
+        $users = User::all();
+        return view('dashboard.dataUsers', compact('users'));
+    }
+
+    public function updateRole(Request $request, string $id)
+    {
+        $user = User::findOrFail($id);
+        $user->role = $request->role;
+        $user->save();
+        return redirect()->route('dataUsers')->with('success', 'Role berhasil diperbarui.');
+    }
 
     /**
      * Show the form for creating a new resource.

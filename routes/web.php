@@ -34,6 +34,8 @@ Route::post('/register', [LoginController::class, 'store'])->name('register.stor
     // Admin Routes
     Route::middleware('role:admin')->group(function () {
         Route::resource('dashboard', DashboardController::class);
+        Route::get('dataUsers', [DashboardController::class, 'dataUsers'])->name('dataUsers');
+        Route::put('dashboard/updateRole/{id}', [DashboardController::class, 'updateRole'])->name('dataUsers.updateRole');
         Route::delete('dataProduk/forceDelete/{id}', [DataProdukController::class, 'forceDelete'])->name('dataProduk.forceDelete');
     });
 

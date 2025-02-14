@@ -48,7 +48,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="{{ route('dataUsers')}}" class="nav-link">
                         <i class="bi bi-person-badge-fill"></i>
                           <p>Data User</p>
                       </a>
