@@ -24,6 +24,7 @@
         <!--begin::Sidebar Menu-->
         <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
           @auth
+          <!--Admin-->
               @if (Auth::user()->role === 'admin')
                   <li class="nav-item">
                       <a href="{{ route('dashboard.index') }}" class="nav-link">
@@ -32,6 +33,7 @@
                       </a>
                   </li>
               @endif
+              <!--Admin & Kasir-->
               @if (Auth::user()->role === 'admin' || Auth::user()->role === 'kasir')
                   <li class="nav-item">
                       <a href="{{ route('dataProduk.index') }}" class="nav-link">
@@ -40,9 +42,10 @@
                       </a>
                   </li>
               @endif
+              <!--Admin-->
               @if (Auth::user()->role === 'admin')
                   <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="{{ route('dataOrder') }}" class="nav-link">
                         <i class="bi bi-receipt"></i>
                           <p>Data Order</p>
                       </a>
@@ -51,6 +54,15 @@
                       <a href="{{ route('dataUsers')}}" class="nav-link">
                         <i class="bi bi-person-badge-fill"></i>
                           <p>Data User</p>
+                      </a>
+                  </li>
+              @endif
+              <!--Admin & Kasir-->
+              @if (Auth::user()->role === 'admin' || Auth::user()->role === 'kasir')
+                  <li class="nav-item">
+                      <a href="{{ route('profile') }}" class="nav-link">
+                        <i class="bi bi-person-badge"></i>
+                          <p>Profile</p>
                       </a>
                   </li>
               @endif

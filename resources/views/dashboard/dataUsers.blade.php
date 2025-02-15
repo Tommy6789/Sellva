@@ -56,8 +56,14 @@
                         <td>{{ $user->nomor_telepon }}</td>
                         <td>{{ ucfirst($user->role) }}</td>
                         <td>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                data-bs-target="#editRoleModal{{ $user->id }}">Ubah Role</button>
+                            <form action="{{route('destroyUsers', $user->id)}}" method="post">
+                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                        data-bs-target="#editRoleModal{{ $user->id }}">Ubah Role</button>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Hapus User</button>
+                                </form>
+                                
                         </td>
                     </tr>
                     @endforeach

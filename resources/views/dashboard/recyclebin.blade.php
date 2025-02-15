@@ -59,14 +59,14 @@
                                         style="width: 60px; height: 70px;">
                                 </td>
                                 <td>
-                                    <form action="{{ route('dataProduk.restore', $i->id) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('restoreProduk', $i->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('PATCH')
                                         <button type="submit" class="btn btn-success">Restore</button>
                                     </form>
                                 
-                                    <form action="{{ route('dataProduk.forceDelete', $i->id) }}" method="POST" style="display:inline;" 
-                                          onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini secara permanen?');">
+                                    <form action="{{ route('forceDeleteProduk', $i->id) }}" method="POST" style="display:inline;" 
+                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini secara permanen?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Hapus Permanen</button>

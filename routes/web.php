@@ -6,6 +6,7 @@ use App\Http\Controllers\DataVoucherController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,9 +35,11 @@ Route::post('/register', [LoginController::class, 'store'])->name('register.stor
     // Admin Routes
     Route::middleware('role:admin')->group(function () {
         Route::resource('dashboard', DashboardController::class);
+        Route::get('dataOrder', [DashboardController::class, 'dataOrder'])->name('dataOrder');
         Route::get('dataUsers', [DashboardController::class, 'dataUsers'])->name('dataUsers');
         Route::put('dashboard/updateRole/{id}', [DashboardController::class, 'updateRole'])->name('dataUsers.updateRole');
-        Route::delete('dataProduk/forceDelete/{id}', [DataProdukController::class, 'forceDelete'])->name('dataProduk.forceDelete');
+        Route::delete('dashboard/destroyUsers/{id}', [DashboardController::class, 'destroyUsers'])->name('destroyUsers');
+        Route::delete('dataProduk/forceDelete/{id}', [DataProdukController::class, 'forceDelete'])->name('forceDeleteProduk');
     });
 
 // Admin & Kasir Shared Routes
@@ -45,9 +48,11 @@ Route::middleware('role:admin,kasir')->group(function () {
     Route::get('kasir', [LandingPageController::class, 'kasir'])->name('kasir');
     Route::post('/pembayaran/{id}', [LandingPageController::class, 'pembayaran'])->name('pembayaran');
     Route::get('nota/{id}', [LandingPageController::class, 'nota'])->name('nota');
-    Route::delete('dataProduk/softDelete/{id}', [DataProdukController::class, 'softDelete'])->name('dataProduk.softDelete');
+    Route::delete('dataProduk/softDelete/{id}', [DataProdukController::class, 'softDelete'])->name('softDeleteProduk');
     Route::get('/recyclebin', [DataProdukController::class, 'recyclebin'])->name('recyclebin');
-    Route::patch('dataProduk/restore/{id}', [DataProdukController::class, 'restore'])->name('dataProduk.restore');
+    Route::patch('dataProduk/restore/{id}', [DataProdukController::class, 'restore'])->name('restoreProduk');
+    Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::put('profile/update/{id}', [ProfileController::class, 'updateProfile'])->name('updateProfile');
 });
 
 // Admin, Kasir, Pelanggan Shared Routes

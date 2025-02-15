@@ -46,8 +46,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function transaksi()
+    public function profile()
     {
-        return $this->hasMany(Transaksi::class, 'id_user', 'id');
+        return $this->hasOne(Profile::class, 'id_user', 'id');
     }
 }

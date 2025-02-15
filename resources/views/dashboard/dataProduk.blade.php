@@ -67,7 +67,7 @@
                     <td><img src="{{ asset('storage/' . $i->gambar) }}" alt="Produk Gambar"
                             style="width: 60px; height: 70px;"></td>
                     <td>
-                        <form action="{{ route('dataProduk.softDelete', $i->id) }}" method="POST" style="display: inline;"
+                        <form action="{{ route('softDeleteProduk', $i->id) }}" method="POST" style="display: inline;"
                             onsubmit="return confirm('Are you sure you want to delete this product?');">
                             @csrf
                             @method('DELETE')
