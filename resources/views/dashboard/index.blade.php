@@ -19,7 +19,7 @@
         <div class="col-sm-6"><h3 class="mb-0">Dashboard</h3></div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-end">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Dashhboard</a></li>
             <li class="breadcrumb-item active">Dashboard</li>
           </ol>
         </div>
@@ -38,7 +38,7 @@
               <p>Total Users</p>
             </div>
             <i class="bi bi-person-circle small-box-icon"></i>
-            <a href="#" class="small-box-footer">
+            <a href="{{ route('dataUsers') }}" class="small-box-footer">
               More info <i class="bi bi-arrow-right"></i>
             </a>
           </div>
@@ -66,13 +66,13 @@
               <p>Total Orders</p>
             </div>
             <i class="bi bi-receipt small-box-icon"></i>
-            <a href="#" class="small-box-footer">
+            <a href="{{route('dataOrder')}}" class="small-box-footer">
               More info <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
 
-        <!-- Total Cart Items -->
+        {{-- <!-- Total Cart Items -->
         <div class="col-lg-3 col-6">
           <div class="small-box text-bg-danger">
             <div class="inner">
@@ -85,7 +85,7 @@
             </a>
           </div>
         </div>
-      </div>
+      </div> --}}
 
       <!-- Additional Section: Recent Orders -->
       <div class="row mt-5">

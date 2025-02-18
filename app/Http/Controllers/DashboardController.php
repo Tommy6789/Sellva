@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\keranjang;
 use App\Models\order;
+use App\Models\orderDetail;
 use App\Models\produk;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -67,9 +68,10 @@ class DashboardController extends Controller
     }
     public function dataOrder()
     {
-        $orders = order::all();
-        return view('dashboard.dataOrder', compact('orders'));
+        $data = order::with('orderDetails.produk')->get(); // Load orderDetails with associated products
+        return view('dashboard.dataOrder', compact('data'));
     }
+    
 
 
     /**

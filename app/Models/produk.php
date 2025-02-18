@@ -25,6 +25,11 @@ class produk extends Model
         return $this->hasMany(keranjang ::class, 'id_produk', 'id');
     }
 
+    public function order()
+    {
+        return $this->hasMany(order::class, 'id_produk', 'id');
+    }
+
     public function orderDetail()
     {
         return $this->hasMany(orderDetail::class, 'id_produk', 'id');

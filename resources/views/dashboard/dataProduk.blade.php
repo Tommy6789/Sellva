@@ -26,7 +26,7 @@
     </div>
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-end">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Dashhboard</a></li>
             <li class="breadcrumb-item active" aria-current="page">Data Produk</li>
         </ol>
     </div>

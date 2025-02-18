@@ -80,7 +80,7 @@
               <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
           </div>          
             <div class="input-group mb-3">
-              <input type="number" class="form-control" name="nomor_telepon" placeholder="Nomor Telepon" value="{{ old('nomor_telepon') }}" />
+              <input type="number" class="form-control" name="nomor_telepon" placeholder="Nomor Telepon" value="{{ old('nomor_telepon') }}" minlength="8" maxlength="12"/>
               <div class="input-group-text"><span class="bi bi-telephone"></span></div>
             </div>
             <div class="input-group mb-3">

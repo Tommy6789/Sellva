@@ -28,7 +28,7 @@ class LoginController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:8|confirmed',
-            'nomor_telepon' => 'required|numeric|digits_between:8,15',
+            'nomor_telepon' => 'required|string|max:15',
             'alamat' => 'required|string|max:255',
             'terms' => 'accepted',
         ], [
