@@ -43,11 +43,11 @@
             <div class="container-fluid">
                 <!-- Start Navbar Links -->
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
                             <i class="bi bi-list"></i>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item d-none d-md-block">
                         <a href="{{ route('home') }}" class="nav-link">Home</a>
                     </li>
@@ -64,7 +64,7 @@
                 </ul>
                 <!-- End Navbar Links -->
 
-                <!-- Start Navbar Right Section -->
+                {{-- <!-- Start Navbar Right Section -->
                 <ul class="navbar-nav ms-auto">
                     <!-- Messages Dropdown Menu -->
                     <li class="nav-item dropdown">
@@ -132,7 +132,7 @@
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
                         </div>
-                    </li>
+                    </li> --}}
                     <!-- End Messages Dropdown Menu -->
 
                     <!-- Notifications Dropdown Menu -->
@@ -198,6 +198,7 @@
         });
     });
 </script>
+
 
 {{-- <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
     <!--begin::App Wrapper-->
