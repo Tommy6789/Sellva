@@ -32,11 +32,12 @@ class DataProdukController extends Controller
 		// Validate incoming data
 		$validatedData = $request->validate([
 			'nama' => 'required|string|max:255',
+			'kategori' => 'required|string|max:255',
 			'harga' => 'required|integer|min:0',
 			'stok' => 'required|integer|min:0',
 			'tanggal_masuk' => 'required|date',
 			'expire' => 'required|date',
-			'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // File must be an image
+			'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
 		]);
 
 		// Handle file upload
@@ -83,6 +84,7 @@ class DataProdukController extends Controller
 		// Validate incoming data
 		$validatedData = $request->validate([
 			'nama' => 'required|string|max:255',
+			'kategori' => 'required|string|max:255',
 			'harga' => 'required|integer|min:0',
 			'stok' => 'required|integer|min:0',
 			'tanggal_masuk' => 'required|date',

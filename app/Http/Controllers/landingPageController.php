@@ -83,7 +83,7 @@ class LandingPageController extends Controller
 
     public function nota($id)
 {
-    $order = Order::with(['user', 'orderDetail.produk'])->findOrFail($id);  // Fetch the Order with its user and order details (including product)
+    $order = Order::with(['user', 'orderDetails.produk'])->findOrFail($id);
     return view('pdf.nota', compact('order'));
 }
 

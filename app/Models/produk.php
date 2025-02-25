@@ -12,6 +12,7 @@ class produk extends Model
     use SoftDeletes;
     protected $fillable = [
         'nama',
+        'kategori',
         'harga',
         'stok',
         'tanggal_masuk',

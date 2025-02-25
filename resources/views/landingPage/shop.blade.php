@@ -45,6 +45,7 @@
                            <div class="text-center">
                               <!-- Product name-->
                               <h5 class="fw-bolder">{{ $i->nama }}</h5>
+                              <p>{{$i->kategori}}</p>
                               <!-- Product price-->
                               <br>
                               Rp {{ $i->harga }}

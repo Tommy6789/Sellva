@@ -9,14 +9,14 @@ class order extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_user', //fill by auth
-        'total', //fill by keranjang checkout
-        'metode_pembayaran', //fill when pembayaran
-        'nominal_pembayaran', //fill when pembayaran
-        'kembalian', //fill when pembayaran
-        'waktu_order', //fill by keranjang checkout
-        'waktu_pembayaran', //fill when pembayaran
-        'status', //enum status and selesai  //fill by keranjang checkout, default proses
+        'id_user',
+        'total',
+        'metode_pembayaran',
+        'nominal_pembayaran',
+        'kembalian',
+        'waktu_order',
+        'waktu_pembayaran',
+        'status',
     ];
 
     public function user()
@@ -25,7 +25,7 @@ class order extends Model
     }
 
     public function orderDetails()
-    {
-        return $this->hasMany(OrderDetail::class, 'id_order', 'id');
-    }
+{
+    return $this->hasMany(OrderDetail::class, 'id_order', 'id');
+}
 }

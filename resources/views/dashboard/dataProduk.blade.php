@@ -48,6 +48,7 @@
         <thead>
             <th>NO</th>
             <th>Nama Produk</th>
+            <th>Kategori</th>
             <th>Harga</th>
             <th>Stok</th>
             <th>Tanggal Masuk</th>
@@ -60,6 +61,7 @@
                 <tr>
                     <td>{{ $no++ }} </td>
                     <td>{{ $i->nama }} </td>
+                    <td>{{ $i->kategori }}</td>
                     <td> Rp {{ number_format($i->harga, 0, ',', '.') }}</td>
                     <td>{{ $i->stok }} </td>
                     <td>{{ $i->tanggal_masuk }} </td>
@@ -98,6 +100,17 @@
                     @csrf
                     <label for="nama_produk">Nama Produk</label>
                     <input type="text" class="form-control" name="nama" id="nama">
+                    <br>
+                    <label for="kategori">Kategori</label><label for="kategori"></label>
+                    <select class="form-control" name="kategori" id="">
+                        <option value="">Pilih Kategori ↓</option>
+                        <option value="Makanan Siap Saji">Makanan Siap Saji</option>
+                        <option value="Makanan Instan">Makanan Instan</option>
+                        <option value="Snack">Snack</option>
+                        <option value="Minuman">Minuman</option>
+                        <option value="Minuman Instan">Minuman Instan</option>
+                        <option value="Produk Rumah Tangga">Produk Rumah Tangga</option>
+                    </select>
                     <br>
                     <label for="harga">Harga</label>
                     <input type="number" class="form-control" name="harga" id="harga">
@@ -141,6 +154,17 @@
                         @method('PUT')
                         <label for="nama_produk">Nama Produk</label>
                         <input type="text" class="form-control" name="nama" id="nama" value="{{ $i->nama }}">
+                        <br>
+                        <select class="form-control" name="kategori" id="kategori">
+                            <option value="">Pilih Kategori ↓</option>
+                            <option value="Makanan Siap Saji" {{ $i->kategori == "Makanan Siap Saji" ? 'selected' : '' }}>Makanan Siap Saji</option>
+                            <option value="Makanan Instan" {{ $i->kategori == "Makanan Instan" ? 'selected' : '' }}>Makanan Instan</option>
+                            <option value="Snack" {{ $i->kategori == "Snack" ? 'selected' : '' }}>Snack</option>
+                            <option value="Minuman" {{ $i->kategori == "Minuman" ? 'selected' : '' }}>Minuman</option>
+                            <option value="Minuman Instan" {{ $i->kategori == "Minuman Instan" ? 'selected' : '' }}>Minuman Instan</option>
+                            <option value="Produk Rumah Tangga" {{ $i->kategori == "Produk Rumah Tangga" ? 'selected' : '' }}>Produk Rumah Tangga</option>
+                        </select>
+                        
                         <br>
                         <label for="harga">Harga</label>
                         <input type="number" class="form-control" name="harga" id="harga" value="{{ $i->harga }}">

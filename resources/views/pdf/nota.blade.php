@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($order->orderDetail as $detail)
+                @foreach ($order->orderDetails as $detail)
                 <tr style="border-bottom:2px dashed #ddd;">
                     <td style="padding: 10px 5px; font-size: 14px; color: #333;">{{ $detail->produk->nama }}</td>
                     <td style="padding: 10px 5px; font-size: 14px; color: #333; text-align: right;">Rp {{ number_format($detail->produk->harga, 0, ',', '.') }}</td>
