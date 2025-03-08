@@ -59,17 +59,6 @@
                             <li class="nav-item"><a class="nav-link" href="{{ route('dashboard.index') }}">Dashboard</a></li>
                         @endif
                     @endauth
-    
-                    <li class="nav-item">
-                        @auth
-                            <a class="nav-link active" href="#" id="logout-btn">Logout</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        @else
-                            <a class="nav-link active" href="{{ route('login') }}">Login</a>
-                        @endauth
-                    </li>
                 </ul>
 
                         <a href="{{ route('keranjangPage') }}" class="btn btn-outline-dark d-flex align-items-center">
@@ -79,6 +68,15 @@
                                 {{ $cartCount ?? 0 }}
                             </span>
                         </a>
+                        <span class="mx-3"></span>
+                        @auth
+                            <a class="btn btn-outline-dark" href="#" id="logout-btn">Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        @else
+                            <a class="btn btn-outline-dark" href="{{ route('login') }}">Login</a>
+                        @endauth
             </div>
         </div>
     </nav>

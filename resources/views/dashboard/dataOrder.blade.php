@@ -49,10 +49,10 @@
                     @foreach ($data as $order)
     <tr>
         <td>{{ $loop->iteration }}</td>
-        <td>{{ $order->total }}</td>
+        <td>Rp {{ number_format($order->total, 0, ',', '.') }}</td>
         <td>{{ $order->metode_pembayaran }}</td>
-        <td>{{ $order->nominal_pembayaran }}</td>
-        <td>{{ $order->kembalian }}</td>
+        <td>Rp {{ number_format($order->nominal_pembayaran, 0, ',', '.') }}</td>
+        <td>Rp {{ number_format($order->kembalian, 0, ',', '.') }}</td>
         <td>{{ $order->waktu_order }}</td>
         <td>{{ $order->waktu_pembayaran }}</td>
         <td>{{ $order->status }}</td>

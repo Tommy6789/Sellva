@@ -49,19 +49,22 @@
                         </a>
                     </li> --}}
                     <li class="nav-item d-none d-md-block">
-                        <a href="{{ route('home') }}" class="nav-link">Home</a>
+                        <b><a href="{{ route('home') }}" class="nav-link">Home</a></b>
                     </li>
                     <li class="nav-item">
-                        @auth
-                            <a class="nav-link active" href="#" id="logout-btn">Logout</a>
+                        
+                    </li>
+                </ul>
+                <div class="navbar-nav">
+                    @auth
+                            <a class="btn btn-outline-dark" href="#" id="logout-btn">Logout</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         @else
-                            <a class="nav-link active" href="{{ route('login') }}">Login</a>
+                            <a class="btn btn-outline-dark" href="{{ route('login') }}">Login</a>
                         @endauth
-                    </li>
-                </ul>
+                </div>
                 <!-- End Navbar Links -->
 
                 {{-- <!-- Start Navbar Right Section -->
