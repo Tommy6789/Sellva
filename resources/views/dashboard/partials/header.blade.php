@@ -34,6 +34,12 @@
         integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous" />
 </head>
 
+<style>
+    #logout-btn:hover {
+    background: red;
+}
+</style>
+
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
     <!-- App Wrapper -->
     <div class="app-wrapper">
@@ -57,7 +63,7 @@
                 </ul>
                 <div class="navbar-nav">
                     @auth
-                            <a class="btn btn-outline-dark" href="#" id="logout-btn">Logout</a>
+                            <a class="btn btn-outline-dark" href="#" id="logout-btn" >Logout</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>

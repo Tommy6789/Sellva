@@ -32,6 +32,9 @@
         footer {
             margin-top: auto;
         }
+    #logout-btn:hover {
+    background: red;
+    }
     </style>
 </head>
 
