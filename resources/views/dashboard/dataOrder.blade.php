@@ -33,9 +33,8 @@
     <div class="app-content">
         <div class="container-fluid">
             <table class="table table-striped">
-                @php $no = 1; @endphp
                 <thead>
-                    <th>NO</th>
+                    <th>ID Order</th>
                     <th>Total</th>
                     <th>Metode Pembayaran</th>
                     <th>Nominal Pembayaran</th>
@@ -48,7 +47,7 @@
                 <tbody>
                     @foreach ($data as $order)
     <tr>
-        <td>{{ $loop->iteration }}</td>
+        <td>{{ $order->id }}</td>
         <td>Rp {{ number_format($order->total, 0, ',', '.') }}</td>
         <td>{{ $order->metode_pembayaran }}</td>
         <td>Rp {{ number_format($order->nominal_pembayaran, 0, ',', '.') }}</td>
@@ -60,9 +59,11 @@
             @if ($order->status == 'proses')
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailOrder{{ $order->id }}" disabled>
                 Lihat Detail</button>
+                <button href="{{route('nota', $order->id)}}" class="btn btn-success" hidden>Nota</button>
             @else
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailOrder{{ $order->id }}">
                 Lihat Detail</button>
+                <a href="{{route('nota', $order->id)}}" class="btn btn-success">Nota</a>
             @endif
         </td>
     </tr>

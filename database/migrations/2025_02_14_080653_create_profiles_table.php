@@ -16,7 +16,7 @@ return new class extends Migration
         $table->unsignedBigInteger('id_user');
         $table->string('nik', 16)->nullable();
         $table->string('npwp', 16)->nullable();
-        $table->string('gender')->nullable();
+        $table->string('gender', 16)->nullable();
         $table->date('tanggal_lahir')->nullable();
         $table->string('foto')->nullable();
         $table->timestamps();

@@ -64,7 +64,7 @@
                                         @method('PATCH')
                                         <button type="submit" class="btn btn-success">Restore</button>
                                     </form>
-                                
+                                    
                                     <form action="{{ route('forceDeleteProduk', $i->id) }}" method="POST" style="display:inline;" 
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini secara permanen?');">
                                         @csrf

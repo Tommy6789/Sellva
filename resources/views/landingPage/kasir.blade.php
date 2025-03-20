@@ -15,18 +15,18 @@
 
 <section class="py-5">
    <div class="container px-4 px-lg-5 mt-5">
-         <h2 class="mb-4">Daftar Pesanan</h2>
+         <h2 class="mb-4">Daftar Order</h2>
 
          @if ($data->isEmpty())
             <div class="alert alert-warning text-center">
-               Belum ada pesanan.
+               Belum ada Order.
             </div>
          @else
             <div class="table-responsive">
                <table class="table table-bordered">
                      <thead class="table-dark">
                         <tr>
-                           <th>ID Pesanan</th>
+                           <th>ID Order</th>
                            <th>Waktu Order</th>
                            <th>Waktu Pembayaran</th>
                            <th>Total</th>
@@ -49,11 +49,12 @@
                                  <td>
                                     @if ($order->status == 'proses')
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalPembayaran{{ $order->id }}">Pembayaran</button>
+                                    data-bs-target="#modalPembayaran{{ $order->id }}" disabled>Pembayaran</button>
+                                    <a href="{{route('nota', $order->id)}}" class="btn btn-success" hidden>Nota</a>
                                     @else
-                                    <button type="button" class="btn btn-primary" disabled>Pembayaran</button>
+                                    <button type="button" class="btn btn-primary">Pembayaran</button>
+                                    <a href="{{route('nota', $order->id)}}" class="btn btn-success">Nota</a>
                                     @endif
-                                       <a href="{{route('nota', $order->id)}}" class="btn btn-success">Nota</a>
                                  </td>
                            </tr>
 

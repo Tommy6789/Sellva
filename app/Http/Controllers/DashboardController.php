@@ -31,25 +31,6 @@ class DashboardController extends Controller
         return view('dashboard.dataUsers', compact('users'));
     }
 
-    // public function storeUsers(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required',
-    //         'email' => 'required|email|unique:users',
-    //         'password' => 'required|min:6',
-    //         'role' => 'required',
-    //     ]);
-    
-    //     $user = new User();
-    //     $user->name = $request->name;
-    //     $user->email = $request->email;
-    //     $user->password = bcrypt($request->password);
-    //     $user->role = $request->role;
-    //     $user->save();
-    
-    //     return redirect()->route('dataUsers')->with('success', 'User baru telah ditambahkan.');
-    // }
-
     public function updateRole(Request $request, string $id)
     {
         $user = User::findOrFail($id);
@@ -68,7 +49,7 @@ class DashboardController extends Controller
     }
     public function dataOrder()
     {
-        $data = order::with('orderDetails.produk')->get(); // Load orderDetails with associated products
+        $data = order::with('orderDetails.produk')->orderBy('waktu_order', 'desc')->get(); // Load orderDetails with associated products
         return view('dashboard.dataOrder', compact('data'));
     }
     

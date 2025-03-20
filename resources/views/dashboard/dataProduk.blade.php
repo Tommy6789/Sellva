@@ -63,7 +63,7 @@
                 </thead>
                 <tbody>
                     @foreach ($data as $i)
-                        @if (strtotime($i->expire) > time())
+                    @if ($i->kategori == 'Peralatan Rumah Tangga' || strtotime($i->expire) > time())
                             <tr>
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $i->nama }}</td>
@@ -71,7 +71,7 @@
                                 <td>Rp {{ number_format($i->harga, 0, ',', '.') }}</td>
                                 <td>{{ $i->stok }}</td>
                                 <td>{{ $i->tanggal_masuk }}</td>
-                                <td>{{ date('d-m-Y', strtotime($i->expire)) }}</td>
+                                <td>{{ $i->expire ?? 'null' }}</td>
                                 <td>
                                     <img src="{{ asset('storage/' . $i->gambar) }}" alt="Produk Gambar"
                                         style="width: 60px; height: 70px;">
@@ -113,7 +113,7 @@
                 </thead>
                 <tbody>
                     @foreach ($data as $i)
-                        @if (strtotime($i->expire) <= time())
+                    @if ($i->kategori != 'Peralatan Rumah Tangga' && strtotime($i->expire) <= time())
                             <tr class="table-danger">
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $i->nama }}</td>
@@ -121,7 +121,7 @@
                                 <td>Rp {{ number_format($i->harga, 0, ',', '.') }}</td>
                                 <td>{{ $i->stok }}</td>
                                 <td>{{ $i->tanggal_masuk }}</td>
-                                <td>{{ date('d-m-Y', strtotime($i->expire)) }}</td>
+                                <td>{{ $i->expire ?? 'null' }}</td>
                                 <td>
                                     <img src="{{ asset('storage/' . $i->gambar) }}" alt="Produk Gambar"
                                         style="width: 60px; height: 70px;">
@@ -133,7 +133,7 @@
                                         @method('DELETE')
                                         <!-- Edit Button -->
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#editProduk{{ $i->id }}">Edit</button>
+                                            data-bs-target="#editProduk{{ $i->id }}" style="display:inline;">Edit</button>
                                         <!-- Delete Button -->
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
@@ -173,6 +173,7 @@
                         <option value="Makanan Instan">Makanan Instan</option>
                         <option value="Minuman Instan">Minuman Instan</option>
                         <option value="Produk Rumah Tangga">Produk Rumah Tangga</option>
+                        <option value="Peralatan Rumah Tangga">Peralatan Rumah Tangga</option>
                     </select>
                     <br>
                     <label for="harga">Harga</label>
@@ -227,6 +228,7 @@
                             <option value="Makanan Instan" {{ $i->kategori == "Makanan Instan" ? 'selected' : '' }}>Makanan Instan</option>
                             <option value="Minuman Instan" {{ $i->kategori == "Minuman Instan" ? 'selected' : '' }}>Minuman Instan</option>
                             <option value="Produk Rumah Tangga" {{ $i->kategori == "Produk Rumah Tangga" ? 'selected' : '' }}>Produk Rumah Tangga</option>
+                            <option value="Peralatan Rumah Tangga" {{ $i->kategori == "Peralatan Rumah Tangga" ? 'selected' : '' }}>Peralatan Rumah Tangga</option>
                         </select>
                         
                         <br>
@@ -262,9 +264,11 @@
 <!-- End Modal Edit Produk -->
 </main>
 <!--end::App Main-->
+@endsection
+
+@section('script')
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
 @endsection
