@@ -110,12 +110,11 @@ class KeranjangController extends Controller
         });
 
         // Clear the cart after successful checkout
-        Keranjang::where('id_user', $user->id)->delete();
+        // Keranjang::where('id_user', $user->id)->delete();
 
         return redirect()->route('home')->with('success', 'Checkout berhasil! Pesanan Anda sedang diproses.');
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Terjadi kesalahan saat melakukan checkout. Silakan coba lagi.');
     }
 }
-
 }

@@ -57,9 +57,13 @@
         <td>{{ $order->waktu_pembayaran }}</td>
         <td>{{ $order->status }}</td>
         <td>
+            @if ($order->status == 'proses')
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailOrder{{ $order->id }}" disabled>
+                Lihat Detail</button>
+            @else
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailOrder{{ $order->id }}">
-                Lihat Detail
-            </button>
+                Lihat Detail</button>
+            @endif
         </td>
     </tr>
 

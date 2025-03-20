@@ -36,8 +36,8 @@ class DataProdukController extends Controller
 			'harga' => 'required|integer|min:0',
 			'stok' => 'required|integer|min:0',
 			'tanggal_masuk' => 'required|date',
-			'expire' => 'required|date',
-			'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+			'expire' => ' nullable|date',
+			'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
 		]);
 
 		// Handle file upload
@@ -88,7 +88,7 @@ class DataProdukController extends Controller
 			'harga' => 'required|integer|min:0',
 			'stok' => 'required|integer|min:0',
 			'tanggal_masuk' => 'required|date',
-			'expire' => 'required|date',
+			'expire' => 'nullable|date',
 			'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // File is optional for update
 		]);
 

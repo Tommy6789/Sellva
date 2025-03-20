@@ -54,7 +54,14 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <div class="login-logo">
-                    <a href="../index2.html"><b>Sellva</b></a>
+                    <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
+                        <img src="{{ asset('dist/assets/img/Logo.png') }}" 
+                            alt="AdminLTE Logo" 
+                            class="brand-image opacity-75" 
+                            style="height: 30px;"> 
+                        Sellva
+                    </a>       
+                    {{-- <a  href="{{ route('home') }}"><b>Sellva</b></a> --}}
                 </div>
                 <p class="login-box-msg">Sign in to start your session</p>
                 <form action="{{ route('loginCheck') }}" method="post">

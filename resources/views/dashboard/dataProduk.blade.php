@@ -36,54 +36,117 @@
 <!--end::Container-->
 </div>
 <div class="app-content">
-<!--begin::Container-->
-<div class="container-fluid">
-<div>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-        data-bs-target="#tambahProduk">Tambah Produk</button>
-        <a href="{{ route('recyclebin') }}" class="btn btn-success">Recycle Bin</a>
-        <br>
-    <table class="table table-striped">
-        @php $no = 1; @endphp
-        <thead>
-            <th>NO</th>
-            <th>Nama Produk</th>
-            <th>Kategori</th>
-            <th>Harga</th>
-            <th>Stok</th>
-            <th>Tanggal Masuk</th>
-            <th>Expire</th>
-            <th>Gambar</th>
-            <th>Aksi</th>
-        </thead>
-        <tbody>
-            @foreach ($data as $i)
-                <tr>
-                    <td>{{ $no++ }} </td>
-                    <td>{{ $i->nama }} </td>
-                    <td>{{ $i->kategori }}</td>
-                    <td> Rp {{ number_format($i->harga, 0, ',', '.') }}</td>
-                    <td>{{ $i->stok }} </td>
-                    <td>{{ $i->tanggal_masuk }} </td>
-                    <td>{{ $i->expire }} </td>
-                    <td><img src="{{ asset('storage/' . $i->gambar) }}" alt="Produk Gambar"
-                            style="width: 60px; height: 70px;"></td>
-                    <td>
-                        <form action="{{ route('softDeleteProduk', $i->id) }}" method="POST" style="display: inline;"
-                            onsubmit="return confirm('Are you sure you want to delete this product?');">
-                            @csrf
-                            @method('DELETE')
-                            <!-- Edit Button -->
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                data-bs-target="#editProduk{{ $i->id }}">Edit</button>
-                            <!-- Delete Button -->
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#tambahProduk">Tambah Produk</button>
+            <a href="{{ route('recyclebin') }}" class="btn btn-success">Recycle Bin</a>
+            <br>
+        </div>
+
+        <!-- Active Products Table -->
+        <div class="my-4">
+            <h3 style="color: green">Active Products</h3>
+            <table class="table table-striped">
+                @php $no = 1; @endphp
+                <thead>
+                    <th>NO</th>
+                    <th>Nama Produk</th>
+                    <th>Kategori</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <th>Tanggal Masuk</th>
+                    <th>Expire</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
+                </thead>
+                <tbody>
+                    @foreach ($data as $i)
+                        @if (strtotime($i->expire) > time())
+                            <tr>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $i->nama }}</td>
+                                <td>{{ $i->kategori }}</td>
+                                <td>Rp {{ number_format($i->harga, 0, ',', '.') }}</td>
+                                <td>{{ $i->stok }}</td>
+                                <td>{{ $i->tanggal_masuk }}</td>
+                                <td>{{ date('d-m-Y', strtotime($i->expire)) }}</td>
+                                <td>
+                                    <img src="{{ asset('storage/' . $i->gambar) }}" alt="Produk Gambar"
+                                        style="width: 60px; height: 70px;">
+                                </td>
+                                <td>
+                                    <form action="{{ route('softDeleteProduk', $i->id) }}" method="POST" style="display: inline;"
+                                        onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <!-- Edit Button -->
+                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#editProduk{{ $i->id }}">Edit</button>
+                                        <!-- Delete Button -->
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Expired Products Table -->
+        <div class="my-4">
+            <h3 style="color: red">Expired Products</h3>
+            <table class="table table-striped">
+                @php $no = 1; @endphp
+                <thead>
+                    <th>NO</th>
+                    <th>Nama Produk</th>
+                    <th>Kategori</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <th>Tanggal Masuk</th>
+                    <th>Expire</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
+                </thead>
+                <tbody>
+                    @foreach ($data as $i)
+                        @if (strtotime($i->expire) <= time())
+                            <tr class="table-danger">
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $i->nama }}</td>
+                                <td>{{ $i->kategori }}</td>
+                                <td>Rp {{ number_format($i->harga, 0, ',', '.') }}</td>
+                                <td>{{ $i->stok }}</td>
+                                <td>{{ $i->tanggal_masuk }}</td>
+                                <td>{{ date('d-m-Y', strtotime($i->expire)) }}</td>
+                                <td>
+                                    <img src="{{ asset('storage/' . $i->gambar) }}" alt="Produk Gambar"
+                                        style="width: 60px; height: 70px;">
+                                </td>
+                                <td>
+                                    <form action="{{ route('softDeleteProduk', $i->id) }}" method="POST" style="display: inline;"
+                                        onsubmit="return confirm('Are you sure you want to delete this expired product?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <!-- Edit Button -->
+                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#editProduk{{ $i->id }}">Edit</button>
+                                        <!-- Delete Button -->
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--end::Container-->
+</div>
 </div>
 
 <!-- Modal Tambah Produk -->
@@ -104,10 +167,10 @@
                     <label for="kategori">Kategori</label><label for="kategori"></label>
                     <select class="form-control" name="kategori" id="">
                         <option value="">Pilih Kategori ↓</option>
-                        <option value="Makanan Siap Saji">Makanan Siap Saji</option>
-                        <option value="Makanan Instan">Makanan Instan</option>
+                        <option value="Makanan Siap Saji">Makanan</option>
                         <option value="Snack">Snack</option>
                         <option value="Minuman">Minuman</option>
+                        <option value="Makanan Instan">Makanan Instan</option>
                         <option value="Minuman Instan">Minuman Instan</option>
                         <option value="Produk Rumah Tangga">Produk Rumah Tangga</option>
                     </select>
@@ -155,12 +218,13 @@
                         <label for="nama_produk">Nama Produk</label>
                         <input type="text" class="form-control" name="nama" id="nama" value="{{ $i->nama }}">
                         <br>
+                        <label for="kategori">Kategori</label>
                         <select class="form-control" name="kategori" id="kategori">
                             <option value="">Pilih Kategori ↓</option>
-                            <option value="Makanan Siap Saji" {{ $i->kategori == "Makanan Siap Saji" ? 'selected' : '' }}>Makanan Siap Saji</option>
-                            <option value="Makanan Instan" {{ $i->kategori == "Makanan Instan" ? 'selected' : '' }}>Makanan Instan</option>
+                            <option value="Makanan Siap Saji" {{ $i->kategori == "Makanan Siap Saji" ? 'selected' : '' }}>Makanan</option>
                             <option value="Snack" {{ $i->kategori == "Snack" ? 'selected' : '' }}>Snack</option>
                             <option value="Minuman" {{ $i->kategori == "Minuman" ? 'selected' : '' }}>Minuman</option>
+                            <option value="Makanan Instan" {{ $i->kategori == "Makanan Instan" ? 'selected' : '' }}>Makanan Instan</option>
                             <option value="Minuman Instan" {{ $i->kategori == "Minuman Instan" ? 'selected' : '' }}>Minuman Instan</option>
                             <option value="Produk Rumah Tangga" {{ $i->kategori == "Produk Rumah Tangga" ? 'selected' : '' }}>Produk Rumah Tangga</option>
                         </select>

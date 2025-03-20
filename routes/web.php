@@ -62,6 +62,7 @@ Route::middleware('role:admin,kasir,pelanggan')->group(function () {
     Route::get('/keranjang/count', [KeranjangController::class, 'getCartCount'])->name('keranjang.count');
     Route::get('keranjangPage', [KeranjangController::class, 'keranjangPage'])->name('keranjangPage');
     Route::get('keranjangCheckout', [KeranjangController::class, 'keranjangCheckout'])->name('keranjangCheckout');
+    Route::get('pembayaranCheckout', [KeranjangController::class, 'pembayaranCheckout'])->name('pembayaranCheckout');
 });
 
 

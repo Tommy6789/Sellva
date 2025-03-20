@@ -30,7 +30,7 @@ class ProfileController extends Controller
         'tanggal_lahir'  => 'nullable|date',
         'alamat'         => 'nullable|string|max:255',
         'nomor_telepon'  => 'nullable|string|max:15',
-        'foto'           => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3000',
+        'foto'           => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048',
     ]);
 
     // Update user basic information
